@@ -1,0 +1,16 @@
+V1 do sistema de cadastro do amigo
+
+1-Implementar o soft delete
+que é informar que foi deletada mais nao foi
+implentar uma nova tabela aonde vai carregar um ativo ou nao
+(falso/true)o cadastro do aluno
+
+2-método read()ou listar amigos()
+aparecer somente o (ID-NOME-TELEFONE)
+
+3-Criar novo método
+-detalhar um novo amigo aonde voce vai buscar um amigo especifico
+
+4-implementar um atualização seletiva
+-um método aonde vou atualizar somente aquilo que eu quero
+e nao sair atualizando tudo
