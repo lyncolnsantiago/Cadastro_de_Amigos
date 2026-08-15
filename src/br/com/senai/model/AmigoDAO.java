@@ -47,10 +47,7 @@ public class AmigoDAO {
                 Amigo amigo = new Amigo(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getString("telefone"),
-                        rs.getString("email"),
-                        rs.getDate("data_nascimento"),
-                        Genero.valueOf(rs.getString("genero"))
+                        rs.getString("telefone")
                 );
                 amigos.add(amigo);
             }
@@ -58,21 +55,44 @@ public class AmigoDAO {
         }
     }
 
+    public Amigo detail(Integer id)  throws SQLException {
+        Connection con = DB_CONNECT.getConnection();
+        if (con == null) {
+            return null;
+        }
+
+        String query = "SELECT * FROM amigos WHERE id = ?;";
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setInt(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Amigo(
+                            rs.getInt("id"),
+                            rs.getString("nome"),
+                            rs.getString("telefone"),
+                            rs.getString("email"),
+                            rs.getDate("data_nascimento"),
+                            Genero.valueOf(rs.getString("genero")),
+                            rs.getBoolean("ativo")
+                    );
+                }
+            }
+        }
+        return null;
+    }
+
     public boolean update(Amigo amigo) throws SQLException {
         Connection con = DB_CONNECT.getConnection();
         if (con == null) {
             return false;
         }
-        String query = "UPDATE amigos SET nome = ?, telefone = ?, email = ?, data_nascimento = ?, genero = ? WHERE id = ?;";
-        try (PreparedStatement ps = con.prepareStatement(query)) {
-            ps.setString(1, amigo.getNome());
-            ps.setString(2, amigo.getTelefone());
-            ps.setString(3, amigo.getEmail());
-            ps.setDate(4, amigo.getData_nascimento());
-            ps.setString(5, amigo.getGenero().name());
+        StringBuilder query = new StringBuilder("UPDATE amigos SET ");
+        List<Object> parameter = new ArrayList<>();
 
-            int linhasModificadas = ps.executeUpdate();
-            return linhasModificadas > 0;
+        if (amigo.getNome() != null && !amigo.getNome().isEmpty()) {
+
+        }
         }
     }
 
@@ -95,7 +115,7 @@ public class AmigoDAO {
         if (con == null) {
             return false;
         }
-        String query = "UPDATE amigos SET ativo = false AND id = ?;";
+        String query = "UPDATE amigos SET ativo = false WHERE id = ?;";
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, id);
 
