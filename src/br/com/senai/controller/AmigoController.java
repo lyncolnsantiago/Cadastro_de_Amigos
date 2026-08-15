@@ -28,8 +28,19 @@ public class AmigoController {
         } else {
             System.out.println("Lista de amigos:");
             for (Amigo amigoTemp : amigos) {
-                System.out.println(amigoTemp);
+                System.out.println(amigoTemp.readList());
             }
+        }
+    }
+
+    public void detalharAmigo(int id) throws SQLException {
+        Amigo amigo = AMIGO_DAO.detail(id);
+
+        if (amigo != null) {
+            System.out.println("----Detalhes do Amigo----");
+            System.out.println(amigo);
+        } else {
+            System.out.println("Controller: Nenhum registro encontrado! \n");
         }
     }
 

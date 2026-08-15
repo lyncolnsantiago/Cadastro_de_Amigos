@@ -78,8 +78,14 @@ public class Amigo {
                 "\nNome: " + nome +
                 "\nTelefone: " + telefone +
                 "\nEmail: " + email +
-                "\nData de nascimento: " + data_nascimento.toString() +
+                "\nAniversario: " + data_nascimento +
                 "\nGenero: " + genero.name() +
                 "\nAtivo: " + ativo + "\n";
+    }
+
+    public String readList() {
+        return "Amigo: " + this.id +
+                "\nNome: " + this.nome +
+                "\nTelefone: " + this.telefone + "\n";
     }
 }

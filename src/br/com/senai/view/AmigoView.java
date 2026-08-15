@@ -30,6 +30,7 @@ public class AmigoView {
             System.out.println("3 - Atualizar dados");
             System.out.println("4 - Excluir amigo");
             System.out.println("5 - Desativar amigo");
+            System.out.println("6 - Detalhar amigo");
 
             System.out.println("Digite sua opção: ");
             int opcao = sc.nextInt();
@@ -110,6 +111,15 @@ public class AmigoView {
 
                     amigoController.desativarAmigo(id);
                 }
+
+                case 6 -> {
+                    System.out.println("Informe o id do amigo que deseja detalhar: ");
+                    Integer id = sc.nextInt();
+                    sc.nextLine();
+
+                    amigoController.detalharAmigo(id);
+                }
+
             }
         }
 
