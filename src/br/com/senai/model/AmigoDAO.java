@@ -55,7 +55,7 @@ public class AmigoDAO {
         }
     }
 
-    public Amigo detail(Integer id)  throws SQLException {
+    public Amigo detail(Integer id) throws SQLException {
         Connection con = DB_CONNECT.getConnection();
         if (con == null) {
             return null;
@@ -84,15 +84,27 @@ public class AmigoDAO {
 
     public boolean update(Amigo amigo) throws SQLException {
         Connection con = DB_CONNECT.getConnection();
-        if (con == null) {
-            return false;
-        }
-        StringBuilder query = new StringBuilder("UPDATE amigos SET ");
-        List<Object> parameter = new ArrayList<>();
+        if (con == null) return false;
 
-        if (amigo.getNome() != null && !amigo.getNome().isEmpty()) {
+        // A query fixa usando COALESCE
+        String query = "UPDATE amigos SET " +
+                "nome = COALESCE(?, nome), " +
+                "telefone = COALESCE(?, telefone), " +
+                "email = COALESCE(?, email), " +
+                "data_nascimento = COALESCE(?, data_nascimento), " +
+                "genero = COALESCE(?, genero) " +
+                "WHERE id = ?;";
 
-        }
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            // Mandamos todos os parâmetros. O banco resolve o que fazer com os nulos!
+            ps.setString(1, amigo.getNome());
+            ps.setString(2, amigo.getTelefone());
+            ps.setString(3, amigo.getEmail());
+            ps.setDate(4, amigo.getData_nascimento());
+            ps.setString(5, amigo.getGenero() != null ? amigo.getGenero().name() : null);
+            ps.setInt(6, amigo.getId());
+
+            return ps.executeUpdate() > 0;
         }
     }
 
