@@ -52,14 +52,6 @@ public class AmigoController {
         }
     }
 
-    public void excluirAmigo(int id) throws SQLException {
-        if (AMIGO_DAO.delete(id)) {
-            System.out.println("Controller: Exclusão realizada com sucesso! \n");
-        } else {
-            System.out.println("Controller: Erro ao excluir amigo! \n");
-        }
-    }
-
     public void desativarAmigo(int id) throws SQLException {
         if (AMIGO_DAO.soft_delete(id)) {
             System.out.println("Controller: Desativação realizada com sucesso! \n");
