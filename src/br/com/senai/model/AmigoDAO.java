@@ -21,7 +21,7 @@ public class AmigoDAO {
         if (con == null) {
             return false;
         }
-        String query = "INSERT INTO amigos(nome, telefone, email, data_nascimento, genero, ativo) VALUES(?, ?, ?, ?, ?)";
+        String query = "INSERT INTO amigos(nome, telefone, email, data_nascimento, genero, ativo) VALUES(?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, amigo.getNome());
             ps.setString(2, amigo.getTelefone());

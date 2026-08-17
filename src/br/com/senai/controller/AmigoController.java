@@ -13,50 +13,23 @@ public class AmigoController {
         this.AMIGO_DAO = AMIGO_DAO;
     }
 
-    public void cadastrarAmigo(Amigo amigo) throws SQLException {
-        if (AMIGO_DAO.create(amigo)) {
-            System.out.println("Controller: Cadastro realizado com sucesso! \n");
-        } else {
-            System.out.println("Controller: Erro ao cadastrar amigo! \n");
-        }
+    public boolean cadastrarAmigo(Amigo amigo) throws SQLException {
+        return AMIGO_DAO.create(amigo);
     }
 
-    public void listarAmigos() throws SQLException {
-        List<Amigo> amigos = AMIGO_DAO.read();
-        if(amigos.isEmpty()){
-            System.out.println("Controller: Nenhum registro encontrado! \n");
-        } else {
-            System.out.println("Lista de amigos:");
-            for (Amigo amigoTemp : amigos) {
-                System.out.println(amigoTemp.readList());
-            }
-        }
+    public List<Amigo> listarAmigos() throws SQLException {
+        return AMIGO_DAO.read();
     }
 
-    public void detalharAmigo(int id) throws SQLException {
-        Amigo amigo = AMIGO_DAO.detail(id);
-
-        if (amigo != null) {
-            System.out.println("----Detalhes do Amigo----");
-            System.out.println(amigo);
-        } else {
-            System.out.println("Controller: Nenhum registro encontrado! \n");
-        }
+    public Amigo detalharAmigo(int id) throws SQLException {
+        return AMIGO_DAO.detail(id);
     }
 
-    public void atualizarAmigo(Amigo amigo) throws SQLException {
-        if (AMIGO_DAO.update(amigo)) {
-            System.out.println("Controller: Atualização realizada com sucesso! \n");
-        } else {
-            System.out.println("Controller: Erro ao atualizar amigo! \n");
-        }
+    public boolean atualizarAmigo(Amigo amigo) throws SQLException {
+        return AMIGO_DAO.update(amigo);
     }
 
-    public void desativarAmigo(int id) throws SQLException {
-        if (AMIGO_DAO.soft_delete(id)) {
-            System.out.println("Controller: Desativação realizada com sucesso! \n");
-        } else  {
-            System.out.println("Controller: Erro ao desativar amigo! \n");
-        }
+    public boolean desativarAmigo(int id) throws SQLException {
+        return AMIGO_DAO.soft_delete(id);
     }
 }

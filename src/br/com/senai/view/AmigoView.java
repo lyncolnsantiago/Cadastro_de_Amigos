@@ -8,6 +8,7 @@ import br.com.senai.model.Genero;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class AmigoView {
@@ -64,10 +65,28 @@ public class AmigoView {
 
                     System.out.println(amigo);
 
-                    amigoController.cadastrarAmigo(amigo);
+                    boolean cadastradoComSucesso = amigoController.cadastrarAmigo(amigo);
+                    if (cadastradoComSucesso) {
+                        System.out.println("Amigo cadastrado com sucesso!");
+                    } else {
+                        System.out.println("Erro ao cadastrar amigo!");
+                    }
+                    System.out.println("------------------------------" + "\n");
                 }
 
-                case 2 -> amigoController.listarAmigos();
+                case 2 -> {
+                    List<Amigo> amigos = amigoController.listarAmigos();
+
+                    if(amigos.isEmpty()){
+                        System.out.println("Nenhum amigo cadastrado!\n");
+                    } else {
+                        System.out.println("---- Lista de amigos ----");
+                        for (Amigo amigoTemp : amigos) {
+                            System.out.println(amigoTemp.readList());
+                        }
+                    }
+                    System.out.println("------------------------------" + "\n");
+                }
 
                 case 3 -> {
                     System.out.println("Informe o id do amigo que deseja atualizar: ");
@@ -96,7 +115,13 @@ public class AmigoView {
 
                     Amigo amigo = new Amigo(id, nome, telefone, email, data_nascimento, genero);
 
-                    amigoController.atualizarAmigo(amigo);
+                    boolean atualizadoComSucesso = amigoController.atualizarAmigo(amigo);
+
+                    if (atualizadoComSucesso) {
+                        System.out.println("Amigo atualizado com sucesso!");
+                    } else {
+                        System.out.println("Erro ao atualizar amigo!");
+                    }
                 }
 
                 case 4 -> {
@@ -104,7 +129,13 @@ public class AmigoView {
                     Integer id = sc.nextInt();
                     sc.nextLine();
 
-                    amigoController.desativarAmigo(id);
+                    boolean deletadoComSucesso = amigoController.desativarAmigo(id);
+
+                    if (deletadoComSucesso) {
+                        System.out.println("Amigo desativado com sucesso!");
+                    } else {
+                        System.out.println("Erro ao desativar amigo!");
+                    }
                 }
 
                 case 5 -> {
@@ -112,7 +143,18 @@ public class AmigoView {
                     Integer id = sc.nextInt();
                     sc.nextLine();
 
-                    amigoController.detalharAmigo(id);
+                    Amigo amigo = amigoController.detalharAmigo(id);
+
+                    if (amigo != null) {
+                        System.out.println("Dados do amigo detalhados com sucesso!");
+                        System.out.println(amigo);
+                    } else  {
+                        System.out.println("Erro ao detalhar os dados do amigo!");
+                    }
+                }
+
+                default -> {
+                    System.out.println("Numero invalido! Escolha um numero de 0 a 5!" + "\n" );
                 }
 
             }
