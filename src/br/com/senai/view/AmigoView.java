@@ -28,9 +28,8 @@ public class AmigoView {
             System.out.println("1 - Cadastrar amigo");
             System.out.println("2 - Listar amigos");
             System.out.println("3 - Atualizar dados");
-            System.out.println("4 - Excluir amigo");
-            System.out.println("5 - Desativar amigo");
-            System.out.println("6 - Detalhar amigo");
+            System.out.println("4 - Desativar amigo");
+            System.out.println("5 - Detalhar amigo");
 
             System.out.println("Digite sua opção: ");
             int opcao = sc.nextInt();
@@ -73,38 +72,34 @@ public class AmigoView {
                 case 3 -> {
                     System.out.println("Informe o id do amigo que deseja atualizar: ");
                     Integer id = sc.nextInt();
-                    sc.nextLine();
+                    sc.nextLine(); // Limpa o buffer do nextInt
 
-                    System.out.println("Atualize o nome do amigo: ");
+                    System.out.println("Atualize o nome (ou aperte Enter para manter o atual): ");
                     String nome = sc.nextLine();
+                    if (nome.trim().isEmpty()) nome = null;
 
-                    System.out.println("Atualize o telefone do amigo:");
+                    System.out.println("Atualize o telefone (ou aperte Enter para manter o atual):");
                     String telefone = sc.nextLine();
+                    if (telefone.trim().isEmpty()) telefone = null;
 
-                    System.out.println("Atualize o email do amigo: ");
-                    String email = sc.next();
+                    System.out.println("Atualize o email (ou aperte Enter para manter o atual): ");
+                    String email = sc.nextLine();
+                    if (email.trim().isEmpty()) email = null;
 
-                    System.out.println("Atualize a data de nascimento do amigo: (yyyy-mm-dd)");
-                    Date data_nascimento = Date.valueOf(sc.next());
-                    sc.nextLine();
+                    System.out.println("Atualize a data de nascimento (yyyy-mm-dd) (ou aperte Enter para manter):");
+                    String dataStr = sc.nextLine();
+                    Date data_nascimento = dataStr.trim().isEmpty() ? null : Date.valueOf(dataStr);
 
-                    System.out.println("Atualize o genero do amigo: (MASCULINO/FEMININO)");
-                    Genero genero = Genero.valueOf(sc.next().toUpperCase());
-                    sc.nextLine();
+                    System.out.println("Atualize o genero (MASCULINO/FEMININO) (ou aperte Enter para manter):");
+                    String generoStr = sc.nextLine();
+                    Genero genero = generoStr.trim().isEmpty() ? null : Genero.valueOf(generoStr.toUpperCase());
 
                     Amigo amigo = new Amigo(id, nome, telefone, email, data_nascimento, genero);
+
                     amigoController.atualizarAmigo(amigo);
                 }
 
                 case 4 -> {
-                    System.out.println("Informe o id do amigo que deseja excluir: ");
-                    Integer id = sc.nextInt();
-                    sc.nextLine();
-
-                    amigoController.excluirAmigo(id);
-                }
-
-                case 5 -> {
                     System.out.println("Informe o id do amigo que deseja desativar: ");
                     Integer id = sc.nextInt();
                     sc.nextLine();
@@ -112,7 +107,7 @@ public class AmigoView {
                     amigoController.desativarAmigo(id);
                 }
 
-                case 6 -> {
+                case 5 -> {
                     System.out.println("Informe o id do amigo que deseja detalhar: ");
                     Integer id = sc.nextInt();
                     sc.nextLine();

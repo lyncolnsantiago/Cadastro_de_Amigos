@@ -14,11 +14,6 @@ public class Amigo {
     public Amigo() {
     }
 
-    public Amigo(int id, String nome) {
-        this.id = id;
-        this.nome = nome;
-    }
-
     public Amigo(Integer id, String nome, String telefone) {
         this.id = id;
         this.nome = nome;
@@ -84,8 +79,8 @@ public class Amigo {
     }
 
     public String readList() {
-        return "Amigo: " + this.id +
-                "\nNome: " + this.nome +
-                "\nTelefone: " + this.telefone + "\n";
+        return "Amigo: " + id +
+                "\nNome: " + nome +
+                "\nTelefone: " + telefone + "\n";
     }
 }
