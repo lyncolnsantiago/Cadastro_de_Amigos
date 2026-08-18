@@ -32,8 +32,16 @@ public class AmigoView {
             System.out.println("4 - Desativar amigo");
             System.out.println("5 - Detalhar amigo");
 
-            System.out.println("Digite sua opção: ");
-            int opcao = Integer.parseInt(sc.nextLine());
+            int opcao = -1;
+            while (true) {
+                try {
+                    System.out.println("digite sua opção: ");
+                    opcao = Integer.parseInt(sc.nextLine());
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Erro: Formato inválido. Digite apenas números inteiros.\n");
+                }
+            }
 
             switch (opcao) {
                 case 0 -> {
@@ -52,11 +60,27 @@ public class AmigoView {
                     System.out.println("Informe o email do amigo: ");
                     String email = sc.nextLine();
 
-                    System.out.println("Informe a data de nascimento do amigo: (yyyy-mm-dd)");
-                    Date data_nascimento = Date.valueOf(sc.nextLine());
+                    Date data_nascimento = null;
+                    while (true) {
+                        try {
+                            System.out.println("Informe a data de nascimento do amigo: (yyyy-mm-dd)");
+                            data_nascimento = Date.valueOf(sc.nextLine());
+                            break;
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Erro: Formato de data inválido. Use o padrão yyyy-mm-dd.\n ");
+                        }
+                    }
 
-                    System.out.println("Informe o genero do amigo: (MASCULINO/FEMININO)");
-                    Genero genero = Genero.valueOf(sc.nextLine().toUpperCase());
+                    Genero genero = null;
+                    while (true) {
+                        try {
+                            System.out.println("Informe o genero do amigo: (MASCULINO/FEMININO)");
+                            genero = Genero.valueOf(sc.nextLine().toUpperCase());
+                            break;
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Erro: Formato inválido. Use o padrão MASCULINO/FEMININO.\n ");
+                        }
+                    }
 
                     Amigo amigo = new Amigo(null, nome, telefone, email, data_nascimento, genero);
 
@@ -74,7 +98,7 @@ public class AmigoView {
                 case 2 -> {
                     List<Amigo> amigos = amigoController.listarAmigos();
 
-                    if(amigos.isEmpty()){
+                    if (amigos.isEmpty()) {
                         System.out.println("Nenhum amigo cadastrado!\n");
                     } else {
                         System.out.println("---- Lista de amigos ----");
@@ -86,8 +110,16 @@ public class AmigoView {
                 }
 
                 case 3 -> {
-                    System.out.println("Informe o id do amigo que deseja atualizar: ");
-                    Integer id = Integer.parseInt(sc.nextLine());
+                    Integer id = -1;
+                    while (true) {
+                        try {
+                            System.out.println("Informe o id do amigo que deseja atualizar: ");
+                            id = Integer.parseInt(sc.nextLine());
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Erro: Formato inválido. Digite apenas números inteiros.\n");
+                        }
+                    }
 
                     System.out.println("Atualize o nome (ou aperte Enter para manter o atual): ");
                     String nome = sc.nextLine();
@@ -101,13 +133,40 @@ public class AmigoView {
                     String email = sc.nextLine();
                     if (email.trim().isEmpty()) email = null;
 
-                    System.out.println("Atualize a data de nascimento (yyyy-mm-dd) (ou aperte Enter para manter):");
-                    String dataStr = sc.nextLine();
-                    Date data_nascimento = dataStr.trim().isEmpty() ? null : Date.valueOf(dataStr);
+                    Date data_nascimento = null;
+                    while (true) {
+                        System.out.println("Atualize a data de nascimento (yyyy-mm-dd) (ou aperte Enter para manter):");
+                        String dataStr = sc.nextLine();
 
-                    System.out.println("Atualize o genero (MASCULINO/FEMININO) (ou aperte Enter para manter):");
-                    String generoStr = sc.nextLine();
-                    Genero genero = generoStr.trim().isEmpty() ? null : Genero.valueOf(generoStr.toUpperCase());
+                        if (dataStr.trim().isEmpty()) {
+                            break;
+                        }
+
+                        try {
+                            data_nascimento = Date.valueOf(dataStr);
+                            break;
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Erro: Formato de data inválida. Use o padrão yyyy-mm-dd.\n ");
+                        }
+
+                    }
+
+                    Genero genero = null;
+                    while (true) {
+                        System.out.println("Atualize o genero (MASCULINO/FEMININO) (ou aperte Enter para manter):");
+                        String generoStr = sc.nextLine();
+
+                        if (generoStr.trim().isEmpty()) {
+                            break;
+                        }
+
+                        try {
+                            genero = Genero.valueOf(generoStr.toUpperCase());
+                            break;
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Erro: Gênero inválido. Digite apenas MASCULINO ou FEMININO.\n ");
+                        }
+                    }
 
                     Amigo amigo = new Amigo(id, nome, telefone, email, data_nascimento, genero);
 
@@ -121,8 +180,16 @@ public class AmigoView {
                 }
 
                 case 4 -> {
-                    System.out.println("Informe o id do amigo que deseja desativar: ");
-                    Integer id = Integer.parseInt(sc.nextLine());
+                    Integer id = -1;
+                    while (true) {
+                        try {
+                            System.out.println("Informe o id do amigo que deseja desativar: ");
+                            id = Integer.parseInt(sc.nextLine());
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Erro: Formato inválido. Digite apenas números inteiros.\n");
+                        }
+                    }
 
                     boolean deletadoComSucesso = amigoController.desativarAmigo(id);
 
@@ -134,25 +201,31 @@ public class AmigoView {
                 }
 
                 case 5 -> {
-                    System.out.println("Informe o id do amigo que deseja detalhar: ");
-                    Integer id = Integer.parseInt(sc.nextLine());
+                    Integer id = -1;
+                    while (true) {
+                        try {
+                            System.out.println("Informe o id do amigo que deseja detalhar: ");
+                            id = Integer.parseInt(sc.nextLine());
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Erro: Formato inválido. Digite apenas números inteiros.\n");
+                        }
+                    }
 
                     Amigo amigo = amigoController.detalharAmigo(id);
 
                     if (amigo != null) {
                         System.out.println("Dados do amigo detalhados com sucesso!");
                         System.out.println(amigo);
-                    } else  {
+                    } else {
                         System.out.println("Erro ao detalhar os dados do amigo!");
                     }
                 }
 
                 default -> {
-                    System.out.println("Numero invalido! Escolha um numero de 0 a 5!" + "\n" );
+                    System.out.println("Numero invalido! Escolha um numero de 0 a 5!" + "\n");
                 }
-
             }
         }
-
     }
 }
