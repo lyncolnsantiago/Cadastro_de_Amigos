@@ -33,8 +33,7 @@ public class AmigoView {
             System.out.println("5 - Detalhar amigo");
 
             System.out.println("Digite sua opção: ");
-            int opcao = sc.nextInt();
-            sc.nextLine(); //limpa o buffer
+            int opcao = Integer.parseInt(sc.nextLine());
 
             switch (opcao) {
                 case 0 -> {
@@ -51,15 +50,13 @@ public class AmigoView {
                     String telefone = sc.nextLine();
 
                     System.out.println("Informe o email do amigo: ");
-                    String email = sc.next();
+                    String email = sc.nextLine();
 
                     System.out.println("Informe a data de nascimento do amigo: (yyyy-mm-dd)");
-                    Date data_nascimento = Date.valueOf(sc.next());
-                    sc.nextLine();
+                    Date data_nascimento = Date.valueOf(sc.nextLine());
 
                     System.out.println("Informe o genero do amigo: (MASCULINO/FEMININO)");
-                    Genero genero = Genero.valueOf(sc.next().toUpperCase());
-                    sc.nextLine();
+                    Genero genero = Genero.valueOf(sc.nextLine().toUpperCase());
 
                     Amigo amigo = new Amigo(null, nome, telefone, email, data_nascimento, genero);
 
@@ -90,8 +87,7 @@ public class AmigoView {
 
                 case 3 -> {
                     System.out.println("Informe o id do amigo que deseja atualizar: ");
-                    Integer id = sc.nextInt();
-                    sc.nextLine(); // Limpa o buffer do nextInt
+                    Integer id = Integer.parseInt(sc.nextLine());
 
                     System.out.println("Atualize o nome (ou aperte Enter para manter o atual): ");
                     String nome = sc.nextLine();
@@ -126,8 +122,7 @@ public class AmigoView {
 
                 case 4 -> {
                     System.out.println("Informe o id do amigo que deseja desativar: ");
-                    Integer id = sc.nextInt();
-                    sc.nextLine();
+                    Integer id = Integer.parseInt(sc.nextLine());
 
                     boolean deletadoComSucesso = amigoController.desativarAmigo(id);
 
@@ -140,8 +135,7 @@ public class AmigoView {
 
                 case 5 -> {
                     System.out.println("Informe o id do amigo que deseja detalhar: ");
-                    Integer id = sc.nextInt();
-                    sc.nextLine();
+                    Integer id = Integer.parseInt(sc.nextLine());
 
                     Amigo amigo = amigoController.detalharAmigo(id);
 
